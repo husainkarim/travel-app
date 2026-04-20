@@ -1,0 +1,65 @@
+DOCKER_COMPOSE_INFRA_FILE=docker-compose.infra.yml
+DOCKER_COMPOSE_CICD_FILE=docker-compose.cicd.yml
+DOCKER_COMPOSE_APP_FILE=docker-compose.app.yml
+
+DOCKER_COMPOSE_COMMAND=docker compose
+
+# --- DB ---
+run-db:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_INFRA_FILE} up -d
+
+stop-db:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_INFRA_FILE} down
+
+reset-db:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_INFRA_FILE} down -v
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_INFRA_FILE} up -d
+
+remove-db:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_INFRA_FILE} down --rmi all -v --remove-orphans
+
+logs-db:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_INFRA_FILE} logs -f
+
+# --- CICD ---
+run-cicd:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_CICD_FILE} up -d
+
+stop-cicd:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_CICD_FILE} down
+
+reset-cicd:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_CICD_FILE} down -v
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_CICD_FILE} up -d
+
+logs-cicd:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_CICD_FILE} logs -f
+
+# --- APP ---
+run-app:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_APP_FILE} up -d
+
+stop-app:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_APP_FILE} down
+
+logs-app:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_APP_FILE} logs -f
+
+build-app:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_APP_FILE} build
+
+reset-app:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_APP_FILE} down -v
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_APP_FILE} up -d
+
+remove-app:
+	${DOCKER_COMPOSE_COMMAND} -f ${DOCKER_COMPOSE_APP_FILE} down --rmi all -v --remove-orphans
+
+
+# --- ALL ---
+run-all:
+	${DOCKER_COMPOSE_COMMAND} \
+	-f ${DOCKER_COMPOSE_INFRA_FILE} \
+	-f ${DOCKER_COMPOSE_CICD_FILE} \
+	-f ${DOCKER_COMPOSE_APP_FILE} \
+	up -d
