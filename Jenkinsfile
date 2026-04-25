@@ -72,7 +72,7 @@ pipeline {
                          -H "Content-Type: application/json" \
                          -X POST \
                          -d '{"state": "success", "context": "Jenkins CI/SafeZone", "description": "Build Succeeded!", "target_url": "${env.BUILD_URL}"}' \
-                         https://api.github.com/repos/husainkarim/e-commerce-platform/statuses/${env.GIT_COMMIT}
+                         https://api.github.com/repos/husainkarim/travel-app/statuses/${env.GIT_COMMIT}
                 """
             }
             
@@ -87,7 +87,7 @@ pipeline {
                          -H "Content-Type: application/json" \
                          -X POST \
                          -d '{"state": "failure", "context": "Jenkins CI/SafeZone", "description": "Build Failed!", "target_url": "${env.BUILD_URL}"}' \
-                         https://api.github.com/repos/husainkarim/e-commerce-platform/statuses/${env.GIT_COMMIT}
+                         https://api.github.com/repos/husainkarim/travel-app/statuses/${env.GIT_COMMIT}
                 """
             }
             
