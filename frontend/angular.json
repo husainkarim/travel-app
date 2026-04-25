@@ -62,6 +62,11 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "ssl": true,
+            "sslCert": "ssl/server.crt",
+            "sslKey": "ssl/server.key"
+          },
           "configurations": {
             "production": {
               "buildTarget": "frontend:build:production"
@@ -124,5 +129,8 @@
     "@schematics/angular:resolver": {
       "typeSeparator": "."
     }
+  },
+  "cli": {
+    "analytics": "465ec8a3-864f-4c6f-9a77-1417600b70ff"
   }
 }
